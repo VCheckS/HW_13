@@ -26,7 +26,7 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void searchByNameWhenNoProductFound() {
+    public void searchByNameWhenOneProductFound() {
 
         ProductRepository repo = new ProductRepository();
         ProductManager manager = new ProductManager(repo);
@@ -47,7 +47,7 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void searchByNameWhenOnePhoneFound() {
+    public void searchByNameWhenFewPhoneFound() {
 
         ProductRepository repo = new ProductRepository();
         ProductManager manager = new ProductManager(repo);
@@ -62,6 +62,29 @@ public class ProductManagerTest {
         repo.add(phone4);
         Product[] actual = manager.searchBy("S");
         Product[] expected = {phone1, phone2, phone3};
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void searchByNameWhenNoProductFound() {
+
+        ProductRepository repo = new ProductRepository();
+        ProductManager manager = new ProductManager(repo);
+
+        Smartphone phone1 = new Smartphone(1, "Sone", "Samsung");
+        Smartphone phone2 = new Smartphone(2, "Stwo", "Samsung");
+        Smartphone phone3 = new Smartphone(3, "Sthre", "Samsung");
+        Smartphone phone4 = new Smartphone(4, "Iphone", "Apple");
+        Book book1 = new Book(5, "Potter", "Rowlings");
+        repo.add(phone1);
+        repo.add(phone2);
+        repo.add(phone3);
+        repo.add(phone4);
+        repo.add(book1);
+        Product[] actual = manager.searchBy("s");
+        Product[] expected = {};
 
         Assertions.assertArrayEquals(expected, actual);
 
